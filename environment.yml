@@ -1,0 +1,13 @@
+name: zgxia
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.9
+  - flask>=2.0
+  - pip
+  - numpy>=1.21
+  - pillow>=9.0
+  - pip:
+    - pywebview>=3.6
+    - mss>=6.0

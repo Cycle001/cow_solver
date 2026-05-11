@@ -1,0 +1,5 @@
+flask>=2.0
+pywebview>=3.6
+mss>=6.0
+pillow>=9.0
+numpy>=1.21

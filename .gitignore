@@ -1,0 +1,196 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.nocover
+.tox/
+.docs/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.env/
+.ENV/
+requirements.txt.bak
+*.swp
+*.swo
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.iml
+*.ipr
+*.iws
+.settings/
+nbproject/
+.vs/
+*.tmproj
+*.sublime-project
+*.sublime-workspace
+.project
+.pydevproject
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+.directory
+*.stackdump
+.nfs*
+*.lnk
+.DS_Store?
+.Spotlight-V100
+.Trashes
+.VolumeIcon.icns
+com.apple.timemachine.donotpresent
+apvolumesettings
+.hg Spotlight-V100
+.SymAVFs
+.SymLynx
+
+# Testing
+.pytest_cache/
+.coverage.*
+nosetests.xml
+coverage/
+htmlcov/
+.instance/
+instances/
+.covers/
+
+# Logs
+*.log
+logs/
+*.out
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Local configuration
+config.local
+*.local
+
+# Coverage
+.coverage
+.coverage.*
+
+# Docs
+docs/_build/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# mypy
+.mypy_cache/
+
+# Pyre
+.pyre/
+
+# Build artifacts
+*.dll
+*.exe
+*.msi
+*.msm
+*.msp
+*.deb
+*.rpm
+*.pkg.tar.xz
+*.dmg
+*.app
+*.snap
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  For a library or package, you might want to ignore these files since they're
+#  not needed in your manifests for tests, training, or serving.
+spec/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.MF
+*.swp
+*~.nib
+local.config
+include/magic
+bin/
+# End of https://www.toptal.com/developers/gitignore/api/python,windows,linux,macos,jupyternotebooks,visualstudiocode
+.gitattributes
+
+# 测试输出图片（测试输入保留用于验证）
+tests/test_data/result*.png
+
+# ai辅助
+.workbuddy/
+.codebuddy/
+
+# 本地备份
+cow_backup/
+
+# 编译输出
+build/
+dist/
+*.egg-info/
+*.spec
+
+# 日志文件
+*.log
+error.log
+
+# 打包相关
+*.ifp
+
+# 临时文件
+*.tmp
+*.temp

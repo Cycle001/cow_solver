@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小牛游戏求解器</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- 上方：项目介绍 -->
+<section class="intro-section">
+  <h1><span class="emoji">&#x1F404;</span> 小牛游戏求解器</h1>
+  <p class="subtitle">上传或粘贴游戏截图，自动找出所有牛的位置</p>
+  <div class="rules">
+    <h3>&#x1F4CB; 游戏规则</h3>
+    <ul>
+      <li>每种颜色恰好放置 1 头牛</li>
+      <li>每一行恰好放置 1 头牛</li>
+      <li>每一列恰好放置 1 头牛</li>
+      <li>任意两头牛不能相邻（3&#x00D7;3 范围内不允许有另一头牛）</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 下方：手动操作区域 -->
+<div class="workspace">
+  <!-- 左侧：输入 -->
+  <div class="panel">
+    <div class="panel-title">&#x1F4F7; 输入图片</div>
+    <div class="drop-zone" id="drop-zone">
+      <div class="placeholder" id="placeholder">
+        <div class="icon">&#x1F5BC;</div>
+        <p>点击选择图片，或直接粘贴截图<br>也可以将图片文件拖拽到此处</p>
+        <p class="hint">支持 PNG / JPG 格式</p>
+      </div>
+      <img class="preview" id="preview" style="display:none;" alt="预览">
+      <button class="clear-btn" id="clear-btn" title="清除">&times;</button>
+    </div>
+    <input type="file" id="file-input" accept="image/png,image/jpeg,image/webp">
+    <button class="solve-btn" id="solve-btn" disabled>开始求解</button>
+  </div>
+
+  <!-- 右侧：输出 -->
+  <div class="panel">
+    <div class="panel-title">&#x1F3AF; 求解结果</div>
+    <div class="output-area" id="output-area">
+      <div class="output-placeholder" id="output-placeholder">
+        <div class="icon">&#x1F50D;</div>
+        <p>请选择或粘贴游戏截图<br>点击「开始求解」查看结果</p>
+      </div>
+      <img class="result-img" id="result-img" style="display:none;" alt="结果">
+      <div class="output-message" id="output-msg" style="display:none;"></div>
+      <div class="output-error" id="output-error" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 自动求解区域 -->
+<section class="auto-section">
+  <div class="auto-card">
+    <div class="auto-header">
+      <h2>&#x1F916; 自动求解</h2>
+      <div class="auto-stats">
+        <span id="stat-levels">&#x1F3AE; 已通关: <b>0</b></span>
+        <span id="stat-placed">&#x1F404; 已放置: <b>0</b></span>
+      </div>
+    </div>
+    <div class="auto-body">
+      <!-- 参数面板 -->
+      <div class="auto-params">
+        <h3>&#x2699;&#xFE0F; 参数设置</h3>
+
+        <!-- 截图区域 -->
+        <div class="param-section-label">截图区域</div>
+
+        <!-- 显示器选择 -->
+        <div class="param-group">
+          <label>目标显示器</label>
+          <select id="param-monitor">
+            <option value="1">加载中...</option>
+          </select>
+        </div>
+
+        <!-- 框选 + 预览按钮 -->
+        <div class="select-region-row">
+          <button class="btn-select" id="btn-select-region" title="在屏幕上拖拽框选截图区域">
+            &#x1F5BC; 框选区域
+          </button>
+          <button class="btn-preview" id="btn-preview-region" title="截取当前区域的预览图">
+            &#x1F441; 预览截图
+          </button>
+        </div>
+
+        <!-- 截图预览 -->
+        <div class="region-preview" id="region-preview">
+          <div class="preview-header">
+            <span>截图区域预览</span>
+            <button class="preview-close" id="preview-close" title="关闭">&times;</button>
+          </div>
+          <img id="region-preview-img" alt="区域预览">
+        </div>
+
+
+        <!-- 求解参数 -->
+        <div class="param-section-label">求解参数</div>
+
+        <div class="param-group">
+          <label>最大关卡数</label>
+          <input type="number" id="param-max-levels" value="9999" min="1" max="99999">
+        </div>
+      </div>
+
+      <!-- 控制面板 -->
+      <div class="auto-controls">
+        <div class="control-buttons">
+          <button class="btn btn-start" id="btn-start">
+            <span id="btn-start-icon">&#x25B6;</span>
+            <span id="btn-start-text">开始</span>
+          </button>
+          <button class="btn btn-pause" id="btn-pause" disabled>
+            <span id="btn-pause-icon">&#x23F8;</span>
+            <span id="btn-pause-text">暂停</span>
+          </button>
+          <div class="status-indicator">
+            <span class="status-dot" id="status-dot"></span>
+            <span id="status-label">就绪</span>
+          </div>
+        </div>
+        <div class="auto-log" id="auto-log">
+          <div class="log-entry log-info">等待启动自动求解...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 全屏弹窗 -->
+<div class="overlay" id="overlay">
+  <img id="overlay-img" alt="放大查看">
+</div>
+
+<!-- 服务器断连遮罩 -->
+<div class="disconnect-overlay" id="disconnect-overlay" style="display:none;">
+  <div class="disconnect-content">
+    <div class="disconnect-icon">&#x26A0;</div>
+    <h2>服务器已关闭</h2>
+    <p>请重新启动服务后刷新页面</p>
+    <button class="disconnect-refresh" id="disconnect-refresh">刷新页面</button>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
